@@ -1,0 +1,33 @@
+<div class="col col-md-6 offset-3 mt-2">
+<div class="card">
+  <div class="card-header">Add Account</div>
+  <div class="card-body">
+    <form [formGroup]="newAccountFromGroup" (ngSubmit)="handleNewAccount()" method="post">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" formControlName="accountType" value="CURRENT">
+        <label class="form-check-label">CurrentAccount:</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" formControlName="accountType" value="SAVING">
+        <label class="form-check-label">SavingAccount:</label>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Balance :</label>
+        <input type="text" formControlName="balance" class="form-control">
+      </div>
+      <div class="mb-3" *ngIf="newAccountFromGroup.value['accountType']=='CURRENT'">
+        <label class="form-label">overDraft :</label>
+        <input type="text" formControlName="overDraft" class="form-control">
+      </div>
+      <div class="mb-3" *ngIf="newAccountFromGroup.value['accountType']=='SAVING'">
+        <label class="form-label">interestRate :</label>
+        <input type="text" formControlName="interestRate" class="form-control">
+      </div>
+
+      <div class="d-grid mb-3">
+        <button class="btn btn-success">Save Account</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>

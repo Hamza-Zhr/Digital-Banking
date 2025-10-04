@@ -1,0 +1,57 @@
+<div class="container mt-2" xmlns="http://www.w3.org/1999/html">
+  <ng-container *ngIf="customers |async as listCustomers;else failureOrloading">
+    <div class="card" >
+      <div class="card-header">Customers</div>
+      <div class="card-body">
+        <div *ngIf="searchFormGroup">
+          <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchCustomers()" *ngIf="this.authService.roles.includes('ADMIN')">
+            <div class="input-group">
+              <label class="input-group-text">Keyword :</label>
+              <input type="text" formControlName="keyword" class="form-control">
+              <button class="btn btn-info">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <table class="table">
+          <thead>
+          <tr>
+            <td>ID</td><td>Name</td><td>Email</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of customers | async">
+            <td>{{c.id}}</td>
+            <td>{{c.name}}</td>
+            <td>{{c.email}}</td>
+            <td *ngIf="this.authService.roles.includes('ADMIN')">
+              <button (click)="handleDeleteCustomer(c)" class="btn btn-danger">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+            <td>
+              <button (click)="getAccount(c)" class="btn btn-success">Accounts</button>
+            </td>
+            <td *ngIf="this.authService.roles.includes('ADMIN')">
+              <button (click)="handleAddAccount(c)" class="btn btn-outline-info">Add Account</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #failureOrloading >
+    <ng-container *ngIf="errorMessage;else loading">
+      <div class="text-danger">
+        {{errorMessage}}
+      </div>
+    </ng-container>
+    <ng-template #loading >
+      Loading ....
+    </ng-template>
+  </ng-template>
+
+</div>

@@ -1,0 +1,148 @@
+<!--
+<div class="container">
+  <div class="card">
+    <div class="card-header">Accounts</div>
+    <div class="card-body">
+      <div>
+      <table class="table" *ngIf="currentAccounts.length>0">
+        <thead>
+        <tr><td>ID</td><td>Balance</td><td>Date</td><td>Overdraft</td></tr>
+        </thead>
+        <tbody >
+        <tr *ngFor="let ca of currentAccounts">
+          <td>{{ca.id}}</td>
+          <td>{{ca.balance}}</td>
+          <td>{{ca.createdate}}</td>
+          <td>{{ca.overdraft}}</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+<!--<div class="container mt-4">
+  &lt;!&ndash; Tableau pour les Current Accounts &ndash;&gt;
+  <h4>Current Accounts</h4>
+  <table class="table table-bordered table-striped" *ngIf="currentAccounts.length > 0">
+    <thead class="thead-dark">
+    <tr>
+      <th>Account ID</th>
+      <th>Balance</th>
+      <th>Creation Date</th>
+      <th>Overdraft</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let account of currentAccounts">
+      <td>{{ account.id }}</td>
+      <td>{{ account.balance }}</td>
+      <td>{{ account.createdate | date }}</td>
+      <td>{{ account.overdraft }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <p *ngIf="currentAccounts.length === 0">Pas de comptes courants trouvés.</p>
+
+  &lt;!&ndash; Tableau pour les Saving Accounts &ndash;&gt;
+  <h4>Saving Accounts</h4>
+  <table class="table table-bordered table-striped" *ngIf="savingAccounts.length > 0">
+    <thead class="thead-dark">
+    <tr>
+      <th>Account ID</th>
+      <th>Balance</th>
+      <th>Creation Date</th>
+      <th>Interest Rate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let account of savingAccounts">
+      <td>{{ account.id }}</td>
+      <td>{{ account.balance }}</td>
+      <td>{{ account.createdate | date }}</td>
+      <td>{{ account.interestRate }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <p *ngIf="savingAccounts.length === 0">Pas de comptes d'épargne trouvés.</p>
+</div>-->
+
+
+
+
+<div class="container mt-2">
+  <ng-container *ngIf="currentAccounts.length > 0">
+    <div class="card">
+      <div class="card-header">Current Accounts</div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Account ID</th>
+            <th>Balance</th>
+            <th>Creation Date</th>
+            <th>Overdraft</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let account of currentAccounts">
+            <td>{{ account.id }}</td>
+            <td>{{ account.balance }}</td>
+            <td>{{ account.createdate | date }}</td>
+            <td>{{ account.overdraft }}</td>
+            <td *ngIf="this.authService.roles.includes('ADMIN')">
+              <button (click)="handledeletAccount(account)" class="btn btn-outline-danger">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+            <td>
+              <button (click)="getOperations(account)" class="btn btn-outline-info">Operations</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <p *ngIf="currentAccounts.length === 0">Pas de comptes courants trouvés.</p>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<div class="container mt-2">
+  <ng-container *ngIf="savingAccounts.length > 0">
+    <div class="card">
+      <div class="card-header">Saving Accounts</div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Account ID</th>
+            <th>Balance</th>
+            <th>Creation Date</th>
+            <th>Interest Rate</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let account of savingAccounts">
+            <td>{{ account.id }}</td>
+            <td>{{ account.balance }}</td>
+            <td>{{ account.createdate | date }}</td>
+            <td>{{ account.interestRate }}</td>
+            <td *ngIf="this.authService.roles.includes('ADMIN')">
+              <button (click)="handledeletAccount(account)" class="btn btn-outline-danger">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+            <td>
+              <button (click)="getOperations(account)" class="btn btn-outline-info">
+                Operations
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <p *ngIf="savingAccounts.length === 0">Pas de comptes saving trouvés.</p>
+      </div>
+    </div>
+  </ng-container>
+</div>
